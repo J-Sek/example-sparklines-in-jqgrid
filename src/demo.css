@@ -6,9 +6,12 @@ table {
     font-size: 12px;
 }
 
-th, td {
+td {
     line-height: 22px;
     vertical-align: bottom;
+}
+
+th, td {
     padding-left: 4px!important;
     padding-right: 4px!important;
 }
