@@ -29,16 +29,11 @@ renderTrend = (cellvalue) ->
   "#{cellvalue}% <i class='icon-trend icon-arrow-#{if cellvalue > 0 then 'up' else if cellvalue is 0 then 'const' else 'down' }'></i>"
 
 renderSparklines = (cellvalue) ->
-  $('<div/>')  
+  $('<div/>') 
   .highcharts 'SparkLine',
       series: [{
           data: cellvalue.split(',').map (x) -> parseInt(x)
-          pointStart: 1
-      }],
-      tooltip: {
-          headerFormat: '<span style="font-size: 10px">Segment, Q{point.x}:</span><br/>',
-          pointFormat: '<b>{point.y}.000</b> USD'
-      },
+      }]
       width: 225
       height: 25
   .html()
@@ -65,6 +60,7 @@ $('#grid').jqGrid
     {
       name: 'trend'
       index: 'trend'
+      sorttype: 'number'
       width: 80,
       formatter: renderTrend
       align: 'right'
