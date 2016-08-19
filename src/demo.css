@@ -1,6 +1,14 @@
 /*
     DEMO
 */
+body {
+    background: #eee;
+}
+
+.ui-jqgrid {
+    box-shadow: 0 0 15px rgba(0,0,0,.5);
+    margin: 120px auto 0;
+}
 
 table {
     font-size: 12px;
@@ -9,11 +17,6 @@ table {
 td {
     line-height: 22px;
     vertical-align: bottom;
-}
-
-th, td {
-    padding-left: 4px!important;
-    padding-right: 4px!important;
 }
 
 /*

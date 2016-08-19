@@ -18,7 +18,7 @@ randomCode = () ->
     .join ''
 
 names = ['id', 'code', 'trend', 'chart']
-data = [1..13].map ->
+data = [1..50].map ->
   [    nextId(),    randomCode(),   randomTrendValue(), randomSparklineData()]
 
 renderTrend = (cellvalue) ->
