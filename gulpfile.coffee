@@ -20,18 +20,17 @@ gulp.task 'build:pug', ->
 gulp.task 'copy:js', ->
     gulp.src 'src/**/*.js'
         .pipe gulp.dest 'dist'
+        .pipe livereload()
 
 gulp.task 'copy:libs', ->
     gulp.src([
             'libs/jquery-ui/themes/base/jquery-ui.css'
-            'libs/bootstrap/dist/css/bootstrap.css'
             'libs/jqGrid/css/ui.jqgrid.css'
             'libs/jqGrid/css/ui.jqgrid-bootstrap.css'
             'libs/jqGrid/css/ui.jqgrid-bootstrap-ui.css'
 
             'libs/jquery/dist/jquery.js'
             'libs/jqGrid/js/jquery.jqGrid.js'
-            'libs/bootstrap/dist/js/bootstrap.js'
             'libs/highcharts/highcharts.js'
         ])
         .pipe gulp.dest 'dist/libs'
@@ -70,3 +69,4 @@ gulp.task 'watch', ['server'], ->
     livereload.listen basePath: 'dist'
     gulp.watch 'src/**/*.jade',    ['build:pug']
     gulp.watch 'src/**/*.coffee',  ['build:coffee']
+    gulp.watch 'src/**/*.js',      ['copy:js']

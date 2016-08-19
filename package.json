@@ -7,7 +7,6 @@
     "start": "gulp server",
     "postinstall": "bower install"
   },
-  "author": "",
   "license": "MIT",
   "dependencies": {
     "gulp": "^3.9.1",

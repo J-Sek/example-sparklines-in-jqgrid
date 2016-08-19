@@ -2,9 +2,6 @@
   "name": "example-sparklines-in-jqgrid",
   "description": "",
   "main": "index.js",
-  "authors": [
-    "Agent404 <jc.de57436d6@outlook.com>"
-  ],
   "license": "ISC",
   "homepage": "",
   "ignore": [
