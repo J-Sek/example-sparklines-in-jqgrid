@@ -22,6 +22,11 @@ gulp.task 'copy:js', ->
         .pipe gulp.dest 'dist'
         .pipe livereload()
 
+gulp.task 'copy:css', ->
+    gulp.src 'src/**/*.css'
+        .pipe gulp.dest 'dist'
+        .pipe livereload()
+
 gulp.task 'copy:libs', ->
     gulp.src([
             'libs/jquery-ui/themes/base/jquery-ui.css'
@@ -45,6 +50,7 @@ gulp.task 'copy:fonts', ->
 
 gulp.task 'copy', [
         'copy:js'
+        'copy:css'
         'copy:libs'
         'copy:images'
         'copy:fonts'
@@ -70,3 +76,4 @@ gulp.task 'watch', ['server'], ->
     gulp.watch 'src/**/*.jade',    ['build:pug']
     gulp.watch 'src/**/*.coffee',  ['build:coffee']
     gulp.watch 'src/**/*.js',      ['copy:js']
+    gulp.watch 'src/**/*.css',     ['copy:css']
