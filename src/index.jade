@@ -3,20 +3,20 @@ html
     head
         title Demo
         link(rel='stylesheet', href='libs/jquery-ui.css')
-        link(rel='stylesheet', href='libs/bootstrap.css')
         link(rel='stylesheet', href='libs/ui.jqgrid.css')
         link(rel='stylesheet', href='libs/ui.jqgrid-bootstrap.css')
         link(rel='stylesheet', href='libs/ui.jqgrid-bootstrap-ui.css')
         style.
             table {
                 font-size: 12px;
+                border-collapse
             }
 
-            td {
+            th, td {
                 line-height: 22px;
                 vertical-align: bottom;
-                padding-left: 10px!important;
-                padding-right: 10px!important;
+                padding-left: 4px!important;
+                padding-right: 4px!important;
             }
 
             td[role="gridcell"] {
@@ -34,6 +34,9 @@ html
                 box-shadow: 1px 1px 2px #888;
                 padding: 8px;
             }
+            .highcharts-container {
+                margin: 0 auto;
+            }
 
     body
         .container
@@ -41,7 +44,6 @@ html
             table#grid
 
         script(src="libs/jquery.js")
-        script(src="libs/bootstrap.js")
         script(src="libs/highcharts.js")
         script(src="libs/jquery.jqGrid.js")
 
