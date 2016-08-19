@@ -1,0 +1,49 @@
+doctype!
+html
+    head
+        title Demo
+        link(rel='stylesheet', href='libs/jquery-ui.css')
+        link(rel='stylesheet', href='libs/bootstrap.css')
+        link(rel='stylesheet', href='libs/ui.jqgrid.css')
+        link(rel='stylesheet', href='libs/ui.jqgrid-bootstrap.css')
+        link(rel='stylesheet', href='libs/ui.jqgrid-bootstrap-ui.css')
+        style.
+            table {
+                font-size: 12px;
+            }
+
+            td {
+                line-height: 22px;
+                vertical-align: bottom;
+                padding-left: 10px!important;
+                padding-right: 10px!important;
+            }
+
+            td[role="gridcell"] {
+                overflow:visible!important;
+            }
+
+            td[role="gridcell"] .highcharts-button {
+                display: none;
+            }
+
+            .highcharts-tooltip>span {
+                background: white;
+                border: 1px solid silver;
+                border-radius: 3px;
+                box-shadow: 1px 1px 2px #888;
+                padding: 8px;
+            }
+
+    body
+        .container
+            h1 Noticed any sparklines?
+            table#grid
+
+        script(src="libs/jquery.js")
+        script(src="libs/bootstrap.js")
+        script(src="libs/highcharts.js")
+        script(src="libs/jquery.jqGrid.js")
+
+        script(src="highcharts.sparkline.js")
+        script(src="demo.js")
