@@ -1,31 +1,68 @@
 st      = require 'st'
 http    = require 'http'
+path    = require 'path'
 gulp    = require 'gulp'
-coffee  = require 'gulp-coffee'
-pug     = require 'gulp-pug'
-livereload = require 'gulp-livereload'
+through = require 'through2'
+$       = require('gulp-load-plugins')()
 
 gulp.task 'build:coffee', ->
     gulp.src 'src/**/*.coffee'
-        .pipe coffee()
+        .pipe $.plumber
+            errorHandler:
+                $.notify.onError
+                    title: 'Cannot compile CoffeeScript'
+                    message: '<%= error.message %>'
+        .pipe $.coffee()
         .pipe gulp.dest 'dist'
-        .pipe livereload()
+        .pipe $.livereload()
+
+gulp.task 'lint:coffee', ->
+    formatter = (file) ->
+        file.coffeelint.results
+            .getErrors(file.relative)
+            .map (err) -> "#{file.relative}|\##{err.lineNumber}: #{err.context or err.message}"
+            .join '\n'
+
+    gulp.src 'src/**/*.coffee'
+        .pipe $.plumber
+            errorHandler:
+                $.notify.onError
+                    title: '<%= error.message.split("|")[0] %>'
+                    message: '<%= error.message.split("|")[1] %>'
+        .pipe $.coffeelint()
+        .pipe $.coffeelint.reporter('coffeelint-stylish')
+        .pipe through.obj (file, enc, cb) ->
+            unless file.coffeelint.success
+                @emit 'error', new $.util.PluginError 'gulp-coffeelint', formatter(file)
+            cb()
+            
+
+gulp.task 'lint:js', ->
+    gulp.src 'src/**/*.js'
+        .pipe $.plumber
+            errorHandler:
+                $.notify.onError
+                    title: 'Invalid JavaScript'
+                    message: '<%= error.message %>'
+        .pipe $.eslint()
+        .pipe $.eslint.format()
+        .pipe $.eslint.failAfterError()
 
 gulp.task 'build:pug', ->
     gulp.src 'src/**/*.jade'
-        .pipe pug()
+        .pipe $.pug()
         .pipe gulp.dest 'dist'
-        .pipe livereload()
+        .pipe $.livereload()
 
 gulp.task 'copy:js', ->
     gulp.src 'src/**/*.js'
         .pipe gulp.dest 'dist'
-        .pipe livereload()
+        .pipe $.livereload()
 
 gulp.task 'copy:css', ->
     gulp.src 'src/**/*.css'
         .pipe gulp.dest 'dist'
-        .pipe livereload()
+        .pipe $.livereload()
 
 gulp.task 'copy:libs', ->
     gulp.src([
@@ -56,9 +93,15 @@ gulp.task 'copy', [
         'copy:fonts'
     ]
 
+gulp.task 'lint', [
+        'lint:coffee'
+        'lint:js'
+    ]
+
 gulp.task 'build', [
         'build:coffee'
         'build:pug'
+        'lint'
         'copy'
     ]
 
@@ -72,8 +115,8 @@ gulp.task 'server', ['build'], (done) ->
         .listen port, done
 
 gulp.task 'watch', ['server'], ->
-    livereload.listen basePath: 'dist'
+    $.livereload.listen basePath: 'dist'
     gulp.watch 'src/**/*.jade',    ['build:pug']
-    gulp.watch 'src/**/*.coffee',  ['build:coffee']
-    gulp.watch 'src/**/*.js',      ['copy:js']
+    gulp.watch 'src/**/*.coffee',  ['build:coffee', 'lint:coffee']
+    gulp.watch 'src/**/*.js',      ['copy:js', 'lint:js']
     gulp.watch 'src/**/*.css',     ['copy:css']
