@@ -1,4 +1,11 @@
-Highcharts.SparkLine = function(a, b, c) {
+/* global Highcharts */
+(function (Highcharts) {
+
+  if (!Highcharts) {
+    throw new Error('Cannot create SparkLine chart constructor without Highcharts');
+  }
+
+  Highcharts.SparkLine = function(a, b, c) {
     var hasRenderToArg = typeof a === 'string' || a.nodeName,
       options = arguments[hasRenderToArg ? 1 : 0],
       defaultOptions = {
@@ -66,4 +73,4 @@ Highcharts.SparkLine = function(a, b, c) {
       ? new Highcharts.Chart(a, options, c) 
       : new Highcharts.Chart(options, b);
   };
-
+})(Highcharts);

@@ -1,34 +1,19 @@
-randomTrendValue = () ->
-  if Math.round(Math.random() * 3) < 1
-    0
-  else
-    Math.round(Math.random() * 100) - 50
-
-randomSparklineData = () ->
-  [1..16]
-    .map -> Math.round(Math.random() * 100)
-    .join ','
-
-lastID = parseInt [1..5].map(-> Math.round(Math.random() * 8) + 1).join ''
-nextId = () -> lastID++
-
-randomCode = () ->
-  [1..4]
-    .map -> String.fromCharCode 65 + Math.round(Math.random() * 24)
-    .join ''
-
 names = ['id', 'code', 'trend', 'chart']
-data = [1..50].map ->
-  [    nextId(),    randomCode(),   randomTrendValue(), randomSparklineData()]
+data = randomData()
 
 renderTrend = (cellvalue) ->
-  "#{cellvalue}% <i class='icon-trend icon-arrow-#{if cellvalue > 0 then 'up' else if cellvalue is 0 then 'const' else 'down' }'></i>"
+  arrowType = switch
+    when cellvalue > 0 then 'up'
+    when cellvalue is 0 then 'const'
+    else 'down'
+
+  "#{cellvalue}% <i class='icon-trend icon-arrow-#{arrowType}'></i>"
 
 renderSparklines = (cellvalue) ->
-  $('<div/>') 
+  $('<div/>')
   .highcharts 'SparkLine',
       series: [{
-          data: cellvalue.split(',').map (x) -> parseInt(x)
+        data: cellvalue.split(',').map (x) -> parseInt(x)
       }]
       width: 225
       height: 25
