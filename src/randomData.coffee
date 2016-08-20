@@ -22,9 +22,7 @@ randomCode = ->
 window.randomData = ->
   [1..50]
     .map ->
-      [
-        nextId()
-        randomCode()
-        randomTrendValue()
-        randomSparklineData()
-      ]
+      id    : nextId()
+      code  : randomCode()
+      trend : randomTrendValue()
+      chart : randomSparklineData()

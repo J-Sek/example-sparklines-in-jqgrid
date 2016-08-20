@@ -1,4 +1,3 @@
-names = ['id', 'code', 'trend', 'chart']
 data = randomData()
 
 renderTrend = (cellvalue) ->
@@ -55,8 +54,6 @@ $('#grid').jqGrid
   ]
 
 $grid = $('#grid')
-for values, i in data
-  r = {}
-  for v, j in values
-    r[names[j]] = v
-  $grid.jqGrid 'addRowData', i + 1, r
+
+for row, i in data
+  $grid.jqGrid 'addRowData', i + 1, row
