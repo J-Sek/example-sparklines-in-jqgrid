@@ -11,5 +11,13 @@
         "**/.idea": true,
         "**/.vscode": true,
        "**/node_modules": true
-     }
+     },
+     "json.schemas": [
+         {
+             "fileMatch": [
+                 "**/coffeelint.json"
+             ],
+             "url": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/coffeelint.json"
+         }
+     ]
 }
