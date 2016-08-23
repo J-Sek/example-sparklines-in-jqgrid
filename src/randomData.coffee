@@ -8,7 +8,7 @@ randomTrendValue = ->
 
 randomSparklineData = ->
   [1..16]
-    .map -> randomInt(100)
+    .map -> randomInt(100) - 40
     .join ','
 
 lastID = parseInt [1..5].map(-> randomInt(8) + 1).join ''

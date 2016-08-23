@@ -19,7 +19,7 @@
           renderTo: (options.chart && options.chart.renderTo) || this,
           backgroundColor: null,
           borderWidth: 0,
-          type: 'area',
+          type: options.chartType || 'line',
           margin: [2, 0, 2, 0],
           width: options.width || 120,
           height: options.height || 20,
@@ -31,38 +31,34 @@
           startOnTick: false,
           labels: { enabled: false },
           title: { text: null },
-          tickPositions: []
+          lineWidth: 0,
+          tickPositions: [],
+          gridLineWidth: 0
         },
         yAxis: {
           endOnTick: false,
           startOnTick: false,
           labels: { enabled: false },
           title: { text: null },
-          tickPositions: [0]
+          tickPositions: [0],
+          gridLineWidth: options.gridLine ? 1 : 0
         },
         plotOptions: {
           series: {
+            color: options.color || '#7af',
+            negativeColor: options.negativeColor || options.color || '#7af',
             animation: false,
-            lineWidth: 1,
-            shadow: false,
-            states: {
-              hover: {
-                lineWidth: 1
-              }
-            },
+            lineWidth: options.lineWidth,
             marker: {
-              radius: 1,
-              states: {
-                hover: {
-                  radius: 2
-                }
-              }
+              radius: options.markerSize
             },
-            fillOpacity: 0.5
+            fillOpacity: options.fillOpacity
           },
-          column: {
-            negativeColor: '#910000',
-            borderColor: 'silver'
+          column: options.columnOptions || {
+            negativeColor: '#e77',
+            pointPadding: 0,
+            borderWidth: .5,
+            borderColor: '#333'
           }
         }
       };
