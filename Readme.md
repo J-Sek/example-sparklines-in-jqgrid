@@ -13,3 +13,9 @@ Run
 Development
 
     gulp watch
+
+---
+
+Quick add to [hotel](https://www.npmjs.com/package/hotel) environment
+
+    gulp hotel:init
