@@ -16,6 +16,10 @@ renderSparklines = (cellvalue) ->
       }]
       width: 225
       height: 25
+      chartType: 'area',
+      gridLine: true,
+      color: '#4ae',
+      negativeColor: '#e77'
   .html()
 
 $('#grid').jqGrid
