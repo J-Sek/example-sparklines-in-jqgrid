@@ -1,9 +1,9 @@
 st      = require 'st'
 http    = require 'http'
-path    = require 'path'
 gulp    = require 'gulp'
 through = require 'through2'
 $       = require('gulp-load-plugins')()
+{shell} = require 'execa'
 
 gulp.task 'build:coffee', ->
     gulp.src 'src/**/*.coffee'
@@ -106,7 +106,7 @@ gulp.task 'build', [
     ]
 
 gulp.task 'server', ['build'], (done) ->
-    port = 8081
+    port = process.env.PORT or 8081
     console.log "Server ready for requests: http://localhost:#{port}/"
     http.createServer st
             path  : __dirname + '/dist' 
@@ -120,3 +120,9 @@ gulp.task 'watch', ['server'], ->
     gulp.watch 'src/**/*.coffee',  ['build:coffee', 'lint:coffee']
     gulp.watch 'src/**/*.js',      ['copy:js', 'lint:js']
     gulp.watch 'src/**/*.css',     ['copy:css']
+
+gulp.task 'hotel:init', ->
+    shell 'hotel add "gulp server"'
+
+gulp.task 'hotel:remove', ->
+    shell 'hotel rm'
