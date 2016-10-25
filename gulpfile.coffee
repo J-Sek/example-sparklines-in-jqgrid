@@ -44,9 +44,7 @@ gulp.task 'lint:js', ->
                 $.notify.onError
                     title: 'Invalid JavaScript'
                     message: '<%= error.message %>'
-        .pipe $.eslint()
-        .pipe $.eslint.format()
-        .pipe $.eslint.failAfterError()
+        .pipe $.xo()
 
 gulp.task 'build:pug', ->
     gulp.src 'src/**/*.jade'
